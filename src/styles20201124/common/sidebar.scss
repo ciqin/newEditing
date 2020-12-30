@@ -1,0 +1,237 @@
+$sideBarOpenWidth: 200px;
+$sideBarCloseWidth: 64px;
+$fixedOpenWidth: calc(100% - 200px);
+$fixedCloseWidth: calc(100% - 64px);
+$navBarHeight: 65px;
+
+  // 公共
+  .fixed-header {
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 2001;
+    @include animateSiderBar(width)
+  }
+  
+  // 收缩功能
+  .hamburger {
+    width: 100%;
+    height: 40px;
+    span {
+      width: 100%;
+      display: inline-block;
+      cursor: pointer;
+      font-size:$font14px;
+      color: #a0a2b2;
+    }
+    .is-active {
+      padding-right: 20px;
+      text-align: right;
+    }
+    .in-active {
+      text-align: center;
+    }
+  }
+  
+  // 侧边导航
+  .sidebar-container {
+    @include animateSiderBar(width);
+    @include background_color("siderbar-bg");   
+    height: 100%;
+    position: fixed;
+    font-size: 0px;
+    bottom: 0;
+    left: 0;
+    z-index: 1001;
+    overflow: hidden;
+    // logo css
+    .sidebar-logo-container {
+      position: relative;
+      width: 100%;
+      height: 65px;
+      line-height: 60px;
+      text-align: center;
+      overflow: hidden;
+    
+      & .sidebar-logo-link {
+        height: 100%;
+        width: 100%;
+    
+        & .sidebar-logo {
+          width: 36px;
+          height: 36px;
+          vertical-align: middle;
+          margin-right: 20px;
+        }
+    
+        & .sidebar-title {
+          display: inline-block;
+          margin: 0;
+          @include color('siderbar-title-color');
+          font-weight: 600;
+          line-height: 65px;
+          font-size: $font20px;
+          vertical-align: middle;
+        }
+      }
+    
+      &.collapse {
+        .sidebar-logo {
+          margin-right: 0px;
+        }
+      }
+    }
+    //menu-item css
+    .menu_sider {
+      @include background_color("siderbar-bg");
+      .el-menu-item  {
+        height: 60px;
+        line-height: 60px;
+        padding-left: 20px!important;    
+        font-size: $font16px;
+        @include color("siderbar-no-active");
+        // menu hover
+        &:hover, &:focus {
+          @include background-color('siderbar-hover-bg');
+          color: var(--navBarColor);
+          .iconfont {
+            color: var(--navBarColor);
+          }
+          .left-block {
+            display: inline-block;
+            width: 6px;
+            height: 100%;
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            background-color: var(--navBarColor);
+          }
+        }
+      }
+      .is-active {
+        color: var(--navBarColor)!important;
+        @include background-color("siderbar-is-active-bg");
+        .left-block {
+          display: inline-block;
+          width: 6px;
+          height: 100%;
+          position: absolute;
+          left: 0;
+          bottom: 0;
+          background-color: var(--navBarColor);
+        }
+      }
+    }
+
+    // reset element-ui css
+    .horizontal-collapse-transition {
+      transition: 0s width ease-in-out, 0s padding-left ease-in-out, 0s padding-right ease-in-out;
+    }
+
+    .scrollbar-wrapper {
+      overflow-x: hidden !important;
+    }
+
+    .el-scrollbar__bar.is-vertical {
+      right: 0px;
+    }
+    
+    .el-scrollbar {
+      height: calc(100% - 100px);
+    }
+
+    a {
+      display: inline-block;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .iconfont {
+      font-size: $font24px;
+      margin-right: 14px;
+    }
+
+    .el-menu {
+      border: none;
+      height: 100%;
+      width: 100% !important;
+    }  
+  }
+  // 展开
+  .openSidebar {
+    .sidebar-container {
+      width: $sideBarOpenWidth !important;
+    }
+    .app-container {
+      @include animateSiderBar(margin-left);
+      margin-left: $sideBarOpenWidth;
+      .fixed-header {
+        width: $fixedOpenWidth;
+      }
+      .main-container {
+        @include animateSiderBar(margin-left);
+        padding-top: $navBarHeight;
+        height: 100%;
+        position: relative;
+      }
+    } 
+  } 
+  // 收起
+  .hideSidebar {
+    .sidebar-container {
+      width: $sideBarCloseWidth !important;
+    }
+    .app-container {
+      margin-left: $sideBarCloseWidth;
+      .fixed-header {
+        width: $fixedCloseWidth!important;
+      }
+      .main-container {
+        padding-top: $navBarHeight;
+      }
+    }
+    // el-tooltip
+    .submenu-title-noDropdown {
+      position: relative;
+
+      .el-tooltip {
+        text-align: left;
+
+        .iconfont {
+          font-size: $font24px;
+
+        }
+      }
+    }
+
+    .el-menu--collapse {
+      .el-submenu {
+        &>.el-submenu__title {
+          &>span {
+            height: 0;
+            width: 0;
+            overflow: hidden;
+            visibility: hidden;
+            display: inline-block;
+          }
+        }
+      }
+    }
+  }
+  .withoutAnimation {
+    .main-container,
+    .sidebar-container {
+      transition: none;
+    }
+  }
+
+
+// when menu collapsed
+.el-menu--vertical {
+  // the scroll bar appears when the subMenu is too long
+  >.el-menu--popup {
+    max-height: 100vh;
+    overflow-y: auto;
+    @include scrollBar;
+  }
+}

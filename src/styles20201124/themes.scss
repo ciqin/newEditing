@@ -1,0 +1,57 @@
+@import './common/colors.scss';
+@import './common/fonts.scss';
+//定义全局主题&颜色的map数组，鉴于V5只有白天和晚上的主题，此处仅定义这两种
+//切记 所有颜色一式两份儿，务必保证key值统一，key值可以自定义，注意避免$%_之类的，
+//与sass自有符号冲突，见文知意即可
+//另外如果基于其他UI框架，如本项目基于element-ui，则只需设置一套dark主题，
+//data-theme为dark时，样式引用dark
+//data-theme为其他值时，自然就采用了elementui的默认样式
+
+$themes: ( 
+    light: (
+        // navBar
+        navbar-font-color: $navbarColor, //navbar字体颜色
+        navbar-avater-border: $navbarColor, //navbar头像边框颜色
+
+        // siderBar
+        siderbar-bg:$lightSidebar, //背景颜色,
+        siderbar-no-active: $lightText, //未选中标题颜色
+        siderbar-is-active-bg: $lightSidebarSelected, //选中标题背景
+        siderbar-hover-bg:$lightSidebarSelected, //鼠标悬浮背景颜色
+        siderbar-title-color: $lightText1, //标题颜色
+        // siderbar-scrollbar
+        siderbar-scrollbar-track-piece: $scrollbarPiece, //滚动条轨迹
+        siderbar-scrollbar-thumb: $scrollbarThumb, //滚动条方块
+        
+        // app-main
+        app-main-bg: $lightBackground,
+    ),
+
+    dark: (
+        // navBar
+        navbar-font-color: $navbarColor, //navbar字体颜色
+        navbar-avater-border: $navbarColor, //navbar头像边框颜色
+
+        // siderBar
+        siderbar-bg: $darkSidebar, //背景颜色,
+        siderbar-no-active: $darkText, //未选中标题颜色
+        siderbar-is-active-bg: $darkSidebarSelected, //选中标题背景
+        siderbar-hover-bg:$darkSidebarSelected, //鼠标悬浮背景颜色
+        siderbar-title-color: #ffffff, //标题颜色
+        // siderbar-scrollbar
+        siderbar-scrollbar-track-piece: $scrollbarPiece, //滚动条轨迹
+        siderbar-scrollbar-thumb: $scrollbarThumb, //滚动条方块
+        
+        // app-main
+        app-main-bg: $darkBackground,
+    )
+);
+
+
+@each $theme-name, $theme-map in $themes {
+    @each $theme-name1, $theme-map1 in $theme-map {
+      :export {
+        #{$theme-name}#{$theme-name1}: $theme-map1;
+      }
+    }
+}
